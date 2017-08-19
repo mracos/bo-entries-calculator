@@ -12,7 +12,7 @@
           <input type="checkbox" v-model="isMartingale">
           <span>Martingale</span>
         </label>
-        <button v-on:click="doOrders">Ordens</button>
+        <button v-on:click="doOrders">Calcular Ordens</button>
       </div>
       <div>
         <table>
@@ -30,8 +30,22 @@
               <td>{{ order.id }}</td>
               <td>${{ order.order | round }}</td>
               <td>${{ order.gain | round }}</td>
-              <td>{{ order.win | round }}%</td>
-              <td>{{ order.loss | round }}%</td>
+              <td >
+                <button v-if="isActualOrder(order.id)" v-on:click="winOrder">
+                  {{ order.win | round }}%
+                </button>
+                <span v-else>
+                  {{ order.win | round }}%
+                </span>
+              </td>
+              <td>
+                <button v-if="isActualOrder(order.id)" v-on:click="loseOrder">
+                  {{ order.loss | round }}%
+                </button>
+                <span v-else>
+                  {{ order.loss | round }}%
+                </span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -68,16 +82,19 @@ export default {
         order.id = this.orders.length
         order.order = this.bankroll * (gainPercent / this.payoutPercent)
         order.gain = order.order * this.payoutPercent
+        order.win = this.gain
         order.loss = (order.order / this.bankroll) * 100
         if (this.canMartingale()) {
           order.loss += this.lastOrder().loss
         }
-        order.win = this.gain
+        if (order.loss > 100) {
+          break
+        }
 
         bankroll -= order.order
         this.orders.push(order)
       } while (
-        order.loss < 50
+        order.loss < 100
         && this.isMartingale
       )
     },
@@ -89,7 +106,23 @@ export default {
         this.isMartingale
         && this.orders.length > 0
       )
-    }
+    },
+    isActualOrder: function(idOrder) {
+      return (
+        idOrder === this.orders[0].id
+      )
+    },
+    winOrder: function() {
+      this.bankroll += Number(this.$options.filters.round(this.orders.shift().gain))
+      this.doOrders()
+    },
+    loseOrder: function() {
+      this.bankroll -= Number(
+        this.$options.filters.round(
+          (this.bankroll * (this.orders.shift().loss / 100))
+        )
+      )
+    },
   },
   computed: {
     payoutPercent: function() {
