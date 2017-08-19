@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-    <div class="flex one four-1200 center">
-      <div class="one-fourth-1200">
+    <div>
+      <div>
         <label>Banca</label>
-        <input type="text" v-model.number="bankroll">
+        <input type="number" min="0" v-model.number="bankroll">
         <label>Payout</label>
-        <input type="text" v-model.number="payout">
+        <input type="number" min="1" max="100" v-model.number="payout">
         <label>Retorno</label>
-        <input type="text" v-model="gain">
+        <input type="number" min="1" v-model="gain">
         <label>
           <input type="checkbox" v-model="isMartingale">
-          <span class="checkable">Martingale</span>
+          <span>Martingale</span>
         </label>
         <button v-on:click="doOrders">Ordens</button>
       </div>
-      <div class="half">
-        <table class="primary">
+      <div>
+        <table>
           <thead>
             <tr>
               <th>Nº</th>
@@ -30,8 +30,8 @@
               <td>{{ order.id }}</td>
               <td>${{ order.order | round }}</td>
               <td>${{ order.gain | round }}</td>
-              <td class="success">{{ order.win | round }}%</td>
-              <td class="error">{{ order.loss | round }}%</td>
+              <td>{{ order.win | round }}%</td>
+              <td>{{ order.loss | round }}%</td>
             </tr>
           </tbody>
         </table>
@@ -103,5 +103,4 @@ export default {
 </script>
 
 <style lang="scss">
-  @import 'node_modules/picnic/src/picnic';
 </style>
