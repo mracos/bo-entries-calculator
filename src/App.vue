@@ -63,8 +63,8 @@ export default {
     return {
       bankroll: 100,
       payout: 91,
-      gain: 15,
-      isMartingale: true,
+      gain: 1,
+      isMartingale: false,
       orders: [],
     }
   },
