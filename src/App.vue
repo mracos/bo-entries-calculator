@@ -15,7 +15,7 @@
             <input type="checkbox" v-model="isMartingale">
             <span>Martingale</span>
           </label>
-          <button class="large" v-on:click="doOrders">Calcular Ordens</button>
+          <button class="max-button" v-on:click="doOrders">Calcular Ordens</button>
         </div>
         <div class="column column-75">
           <table>
@@ -150,6 +150,9 @@ export default {
   .button-fail {
     background-color: $fail;
     border-color: $fail;
+  }
+  .max-button {
+    width: 100%;
   }
   .text-success {
     color: $success;
