@@ -95,10 +95,7 @@ export default {
 
         bankroll -= order.order
         this.orders.push(order)
-      } while (
-        order.loss < 100
-        && this.isMartingale
-      )
+      } while (this.isMartingale)
     },
     lastOrder: function() {
       return this.orders.slice(-1).pop()
@@ -115,7 +112,11 @@ export default {
       )
     },
     winOrder: function() {
-      this.bankroll += Number(this.$options.filters.round(this.orders.shift().gain))
+      this.bankroll += Number(
+        this.$options.filters.round(
+          this.orders.shift().gain
+        )
+      )
       this.doOrders()
     },
     loseOrder: function() {
