@@ -34,18 +34,18 @@
                 <template v-if="isActualOrder(order.id)">
                   <td>
                     <button class="button-success" v-on:click="winOrder">
-                      {{ order.win | round }}%
+                    +{{ order.win | round }}%
                     </button>
                   </td>
                   <td>
                     <button class="button-fail" v-on:click="loseOrder">
-                      {{ order.loss | round }}%
+                      -{{ order.loss | round }}%
                     </button>
                   </td>
                 </template>
                 <template v-else>
-                  <td class="text-success">{{ order.win | round }}%</td>
-                  <td class="text-fail">{{ order.loss | round }}%</td>
+                  <td class="text-success">+{{ order.win | round }}%</td>
+                  <td class="text-fail">-{{ order.loss | round }}%</td>
                 </template>
               </tr>
             </tbody>
