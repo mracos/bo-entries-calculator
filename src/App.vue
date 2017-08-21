@@ -1,55 +1,79 @@
 <template>
   <div id="app">
-    <div class="container">
-      <h2>Trading System</h2>
-      <hr>
-      <div class="row">
-        <div class="column">
-          <label>Banca</label>
-          <input type="number" min="0" v-model.number="bankroll">
-          <label>Payout</label>
-          <input type="number" min="1" max="100" v-model.number="payout">
-          <label>Retorno</label>
-          <input type="number" min="1" v-model="gain">
-          <label>
-            <input type="checkbox" v-model="isMartingale">
-            <span>Martingale</span>
-          </label>
-          <button class="max-button" v-on:click="doOrders">Calcular Ordens</button>
-        </div>
-        <div class="column column-75">
-          <table>
-            <thead>
-              <tr>
-                <th>Ordem</th>
-                <th>Retorno</th>
-                <th>Win</th>
-                <th>Loss</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="order in orders">
-                <td>${{ order.order | round }}</td>
-                <td>${{ order.gain | round }}</td>
-                <template v-if="isActualOrder(order.id)">
-                  <td>
-                    <button class="button-success" v-on:click="winOrder">
-                    +{{ order.win | round }}%
-                    </button>
-                  </td>
-                  <td>
-                    <button class="button-fail" v-on:click="loseOrder">
-                      -{{ order.loss | round }}%
-                    </button>
-                  </td>
-                </template>
-                <template v-else>
-                  <td class="text-success">+{{ order.win | round }}%</td>
-                  <td class="text-fail">-{{ order.loss | round }}%</td>
-                </template>
-              </tr>
-            </tbody>
-          </table>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card-block">
+              <h3 class="card-title">Trading System</h3>
+              <div class="form">
+                <div class="form-group">
+                  <label>Banca</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    <input class="form-control" type="number" min="0" placeholder="100" v-model.number="bankroll">
+                  </div>
+                  <label>Payout</label>
+                  <div class="input-group">
+                    <input class="form-control" type="number" min="1" max="100" placeholder="91" v-model.number="payout">
+                    <div class="input-group-addon">%</div>
+                  </div>
+                  <label>Retorno</label>
+                  <div class="input-group">
+                    <input class="form-control" type="number" min="1" placeholder="1" v-model.number="gain">
+                    <div class="input-group-addon">%</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" v-model="isMartingale">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">Martingale</span>
+                  </label>
+                </div>
+                <button class="btn btn-primary btn-block" v-on:click="doOrders">Calcular Ordens</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-block">
+              <table class="table table-responsive text-center">
+                <thead class="thead-inverse">
+                  <tr>
+                    <th>Ordem</th>
+                    <th>Retorno</th>
+                    <th>Win / Loss</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="order in orders">
+                    <td>
+                      ${{ order.order | round }}
+                    </td>
+                    <td>
+                      ${{ order.gain | round }}
+                    </td>
+                    <template v-if="isActualOrder(order.id)">
+                      <td class="btn-group">
+                        <button class="btn btn-sm btn-outline-success" v-on:click="winOrder">
+                          +{{ order.win | round }}%
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" v-on:click="loseOrder">
+                          -{{ order.loss | round }}%
+                        </button>
+                      </td>
+                    </template>
+                    <template v-else>
+                      <td>
+                        <span class="badge badge-success">+{{ order.win | round }}%</span>
+                        <span class="badge badge-danger">-{{ order.loss | round }}%</span>
+                      </td>
+                    </template>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -143,27 +167,5 @@ export default {
 </script>
 
 <style lang="scss">
-  @import 'node_modules/milligram-scss/src/milligram';
-
-  $success: #2ecc71;
-  $fail: #e74c3c;
-
-  .button-success {
-    background-color: $success;
-    border-color: $success;
-  }
-  .button-fail {
-    background-color: $fail;
-    border-color: $fail;
-  }
-  .max-button {
-    width: 100%;
-  }
-  .text-success {
-    color: $success;
-  }
-  .text-fail {
-    color: $fail;
-  }
-
+  @import 'node_modules/bootstrap/scss/bootstrap';
 </style>
