@@ -112,18 +112,22 @@ export default {
       )
     },
     winOrder: function() {
-      this.bankroll += Number(
-        this.$options.filters.round(
-          this.orders.shift().gain
-        )
+      let order = this.orders.shift()
+      this.bankroll += this.$options.filters.round(
+        order.gain
+      )
+      this.bankroll = this.$options.filters.round(
+        this.bankroll
       )
       this.doOrders()
     },
     loseOrder: function() {
-      this.bankroll -= Number(
-        this.$options.filters.round(
-          (this.bankroll * (this.orders.shift().loss / 100))
-        )
+      let order = this.orders.shift()
+      this.bankroll -= this.$options.filters.round(
+        (this.bankroll * (order.loss / 100))
+      )
+      this.bankroll = this.$options.filters.round(
+        this.bankroll
       )
     },
   },
