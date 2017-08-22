@@ -89,49 +89,55 @@ export default {
       payout: 90,
       gain: 1,
       isMartingale: false,
-      orders: [],
+      orders: []
     }
   },
   methods: {
     doOrders: function() {
       this.orders = []
 
-      do {
+      while (
+        this.orders.length === 0
+        || this.isMartingale
+      ) {
         let order = {}
-        let gainPercent = this.gainPercent
-
-        if (this.canMartingale()) {
-          gainPercent += (this.lastOrder().loss / 100)
-        }
 
         order.id = this.orders.length
-        order.order = this.bankroll * (gainPercent / this.payoutPercent)
-        order.gain = order.order * this.payoutPercent
+        order.order = this.bankroll * (
+          (this.gainPercent() + (this.lastLossOrZero() / 100)) / this.payoutPercent()
+        )
         order.win = this.gain
-        order.loss = (order.order / this.bankroll) * 100
-        if (this.canMartingale()) {
-          order.loss += this.lastOrder().loss
-        }
+        order.gain = order.order * this.payoutPercent()
+        order.loss = ((order.order / this.bankroll) * 100) + this.lastLossOrZero()
+
         if (order.loss > 100) {
           break
         }
-
-        this.orders.push(order)
-      } while (this.isMartingale)
+        this.insertOrder(order)
+      }
     },
     lastOrder: function() {
       return this.orders.slice(-1).pop()
     },
-    canMartingale: function() {
-      return (
-        this.isMartingale
-        && this.orders.length > 0
-      )
+    lastLossOrZero: function() {
+      let lastOrder = this.lastOrder()
+      let lastLoss = 0
+      if (lastOrder !== undefined) {
+        lastLoss = lastOrder.loss
+      }
+      return lastLoss
     },
     isActualOrder: function(idOrder) {
       return (
         idOrder === this.orders[0].id
       )
+    },
+    insertOrder: function(order) {
+      let roundedOrder = {}
+      for (let property in order) {
+        roundedOrder[property] = this.round2(order[property])
+      }
+      this.orders.push(roundedOrder)
     },
     winOrder: function() {
       let order = this.orders.shift()
@@ -150,15 +156,13 @@ export default {
     },
     round2: function(number) {
       return Number(Number(number).toFixed(2))
-    }
-  },
-  computed: {
+    },
     payoutPercent: function() {
       return (this.payout / 100)
     },
     gainPercent: function() {
       return (this.gain / 100)
-    },
+    }
   }
 }
 </script>
