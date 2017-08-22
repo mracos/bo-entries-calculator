@@ -86,7 +86,7 @@ export default {
   data () {
     return {
       bankroll: 100,
-      payout: 91,
+      payout: 90,
       gain: 1,
       isMartingale: false,
       orders: [],
@@ -94,12 +94,11 @@ export default {
   },
   methods: {
     doOrders: function() {
-      let bankroll = this.bankroll
-      let gainPercent = this.gainPercent
-
       this.orders = []
+
       do {
-        var order = {}
+        let order = {}
+        let gainPercent = this.gainPercent
 
         if (this.canMartingale()) {
           gainPercent += (this.lastOrder().loss / 100)
@@ -117,7 +116,6 @@ export default {
           break
         }
 
-        bankroll -= order.order
         this.orders.push(order)
       } while (this.isMartingale)
     },
@@ -137,23 +135,22 @@ export default {
     },
     winOrder: function() {
       let order = this.orders.shift()
-      this.bankroll += this.$options.filters.round(
-        order.gain
-      )
-      this.bankroll = this.$options.filters.round(
+      this.bankroll += order.gain
+      this.bankroll = this.round2(
         this.bankroll
       )
       this.doOrders()
     },
     loseOrder: function() {
       let order = this.orders.shift()
-      this.bankroll -= this.$options.filters.round(
-        (this.bankroll * (order.loss / 100))
-      )
-      this.bankroll = this.$options.filters.round(
+      this.bankroll -= order.order
+      this.bankroll = this.round2(
         this.bankroll
       )
     },
+    round2: function(number) {
+      return Number(Number(number).toFixed(2))
+    }
   },
   computed: {
     payoutPercent: function() {
