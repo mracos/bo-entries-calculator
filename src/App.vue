@@ -37,41 +37,104 @@
           </div>
           <div class="col-md-6">
             <div class="card-block">
-              <table class="table table-responsive text-center">
-                <thead class="thead-inverse">
-                  <tr>
-                    <th>Ordem</th>
-                    <th>Retorno</th>
-                    <th>Win / Loss</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="order in orders">
-                    <td>
-                      ${{ order.order | round }}
-                    </td>
-                    <td>
-                      ${{ order.gain | round }}
-                    </td>
-                    <template v-if="isActualOrder(order.id)">
-                      <td class="btn-group">
-                        <button class="btn btn-sm btn-outline-success" v-on:click="winOrder">
-                          +{{ order.win | round }}%
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger" v-on:click="loseOrder">
-                          -{{ order.loss | round }}%
-                        </button>
+              <vue-tabs>
+                <v-tab title="Ordens">
+                  <table class="table table-responsive text-center">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Entrada</th>
+                        <th>Retorno</th>
+                        <th>Win / Loss</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="order in orders">
+                        <td>
+                          ${{ order.order | round }}
                       </td>
-                    </template>
-                    <template v-else>
                       <td>
-                        <span class="badge badge-success">+{{ order.win | round }}%</span>
-                        <span class="badge badge-danger">-{{ order.loss | round }}%</span>
-                      </td>
-                    </template>
-                  </tr>
-                </tbody>
-              </table>
+                          ${{ order.gain | round }}
+                        </td>
+                        <template v-if="isActualOrder(order.id)">
+                          <td class="btn-group">
+                            <button class="btn btn-sm btn-success" v-on:click="doOrder({win:true})">
+                              +{{ order.win | round }}%
+                            </button>
+                            <button class="btn btn-sm btn-danger" v-on:click="doOrder({win:false})">
+                              -{{ order.loss | round }}%
+                            </button>
+                          </td>
+                        </template>
+                        <template v-else>
+                          <td class="btn-group">
+                            <button class="btn btn-sm btn-outline-success text-success" disabled>
+                              +{{ order.win | round }}%
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger text-danger" disabled>
+                              -{{ order.loss | round }}%
+                            </button>
+                          </td>
+                        </template>
+                      </tr>
+                    </tbody>
+                  </table>
+                </v-tab>
+                <v-tab title="Histórico" v-if="this.history.length > 0">
+                  <table class="table table-responsive text-center">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Ordem</th>
+                        <th>Banca</th>
+                        <th>Retorno</th>
+                        <th>Win / Loss</th>
+                        <th>Martingale?</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="order in history"
+                        :class="{'text-success': order.win, 'text-danger': !order.win}"
+                      >
+                        <td>
+                          <strong>
+                            {{ order.id }}
+                          </strong>
+                        </td>
+                        <td>
+                          ${{ order.bankroll }}
+                        </td>
+                        <template v-if="order.win">
+                          <td>
+                            +${{ order.order.gain }}
+                          </td>
+                          <td>
+                            +{{ order.order.win }}%
+                          </td>
+                          <td v-if="order.order.id > 0">
+                            <span class="badge badge-success">
+                              Sim
+                            </span>
+                            <span class="badge badge-warning">
+                              {{ order.order.id }}º
+                            </span>
+                          </td>
+                        </template>
+                        <template v-else>
+                          <td>
+                            -${{ order.order.order }}
+                          </td>
+                          <td>
+                            -{{ order.order.loss }}%
+                          </td>
+                          <td>
+                          </td>
+                        </template>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </v-tab>
+              </vue-tabs>
             </div>
           </div>
         </div>
@@ -81,15 +144,23 @@
 </template>
 
 <script>
+import {VueTabs, VTab} from 'vue-nav-tabs'
+import 'vue-nav-tabs/themes/vue-tabs.css';
+
 export default {
   name: 'app',
+  components: {
+    VueTabs,
+    VTab
+  },
   data () {
     return {
       bankroll: 100,
       payout: 90,
       gain: 1,
       isMartingale: false,
-      orders: []
+      orders: [],
+      history: [],
     }
   },
   methods: {
@@ -139,20 +210,24 @@ export default {
       }
       this.orders.push(roundedOrder)
     },
-    winOrder: function() {
+    doOrder: function(options) {
       let order = this.orders.shift()
-      this.bankroll += order.gain
-      this.bankroll = this.round2(
-        this.bankroll
-      )
-      this.doOrders()
+      if (options.win) {
+        this.bankroll += order.gain
+        this.doOrders()
+      } else {
+        this.bankroll -= order.order
+      }
+      this.bankroll = this.round2(this.bankroll)
+      this.addToHistory(order, options.win)
     },
-    loseOrder: function() {
-      let order = this.orders.shift()
-      this.bankroll -= order.order
-      this.bankroll = this.round2(
-        this.bankroll
-      )
+    addToHistory: function(order, win) {
+      this.history.push({
+        id: this.history.length,
+        bankroll: this.bankroll,
+        win: win,
+        order: order,
+      })
     },
     round2: function(number) {
       return Number(Number(number).toFixed(2))
