@@ -1,4 +1,5 @@
 # ts
+## Calculador de ordens (com martingale) em vuejs
 
 > Stick to your trade system!
 
@@ -13,6 +14,6 @@ npm run dev
 
 # build for production with minification
 npm run build
-```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+```
+> now you can copy the index.html and everything from the dist folder

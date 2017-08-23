@@ -104,7 +104,7 @@ export default {
 
         order.id = this.orders.length
         order.order = this.bankroll * (
-          (this.gainPercent() + (this.lastLossOrZero() / 100)) / this.payoutPercent()
+          (this.gainPercent() + this.lastLossOrZeroPercent()) / this.payoutPercent()
         )
         order.win = this.gain
         order.gain = order.order * this.payoutPercent()
@@ -162,7 +162,10 @@ export default {
     },
     gainPercent: function() {
       return (this.gain / 100)
-    }
+    },
+    lastLossOrZeroPercent: function() {
+      return (this.lastLossOrZero() / 100)
+    },
   }
 }
 </script>
