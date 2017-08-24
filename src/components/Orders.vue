@@ -17,10 +17,10 @@
         </td>
           <td class="btn-group">
             <template v-if="isActualOrder(order.id)">
-              <button class="btn btn-sm btn-success" v-on:click="doOrder({win:true})">
+              <button class="btn btn-sm btn-success" @click="doOrder({win:true})">
                 +{{ order.win | round }}%
               </button>
-              <button class="btn btn-sm btn-danger" v-on:click="doOrder({win:false})">
+              <button class="btn btn-sm btn-danger" @click="doOrder({win:false})">
                 -{{ order.loss | round }}%
               </button>
             </template>
@@ -46,11 +46,7 @@ export default {
   },
   methods: {
     doOrder: function(options) {
-      if (options.win) {
-        this.$emit('win')
-      } else {
-        this.$emit('lose')
-      }
+      this.$emit('order', options)
     },
     isActualOrder: function(idOrder) {
       return (

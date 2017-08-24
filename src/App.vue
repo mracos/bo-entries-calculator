@@ -1,37 +1,28 @@
 <template>
   <div id="app">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-3">
-            <div class="card-block">
-              <h3 class="card-title">Trading System</h3>
-              <ts-form
-                :bankroll="this.bankroll"
-                :payout="this.payout"
-                :gain="this.gain"
-                :is-martingale="this.isMartingale"
-                @doOrders="this.doOrders"
-              ></ts-form>
-            </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Trading System</h3>
+            <ts-form @doOrders="doOrders">
+            </ts-form>
           </div>
-          <div class="col-md-6">
-            <div class="card-block">
-              <vue-tabs>
-                <v-tab title="Ordens">
-                  <ts-orders
-                    :orders="this.orders"
-                    @win="doOrder({win:true})"
-                    @lose="doOrder({win:false})"
-                  ></ts-orders>
-                </v-tab>
-                <v-tab title="Histórico" v-if="this.history.length > 0">
-                  <ts-history
-                    :history="this.history"
-                  ></ts-history>
-                </v-tab>
-              </vue-tabs>
-            </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <vue-tabs>
+              <v-tab title="Ordens">
+                <ts-orders :orders="orders" @order="doOrder">
+                </ts-orders>
+              </v-tab>
+              <v-tab title="Histórico" v-if="history.length > 0">
+                <ts-history :history="history">
+                </ts-history>
+              </v-tab>
+            </vue-tabs>
           </div>
         </div>
       </div>
