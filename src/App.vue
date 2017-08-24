@@ -52,7 +52,10 @@ export default {
       bankroll: 100,
       payout: 90,
       gain: 1,
-      isMartingale: false,
+      martingale: {
+        is: true,
+        quantity: 3,
+      },
       orders: [],
       history: [],
     }
@@ -63,7 +66,10 @@ export default {
 
       while (
         this.orders.length === 0
-        || this.isMartingale
+        || (
+            this.martingale.is
+            && this.orders.length < (this.martingale.quantity)
+        )
       ) {
         let order = {}
 
@@ -136,4 +142,19 @@ export default {
 
 <style lang="scss">
   @import 'node_modules/bootstrap/scss/bootstrap';
+
+  $primary: #013a57;
+  $secondary: #e5cc6a;
+  .btn-primary,
+  .thead-primary {
+    background-color: $primary;
+    color: white;
+  }
+
+  .btn-primary:hover,
+  .custom-control-input:checked {
+    border-color: $secondary;
+    background-color: $secondary;
+    color: $primary;
+  }
 </style>

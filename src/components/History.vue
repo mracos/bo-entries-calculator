@@ -1,8 +1,8 @@
 <template>
   <table class="table table-responsive text-center">
-    <thead class="thead-inverse">
+    <thead class="thead-primary">
       <tr>
-        <th>Ordem</th>
+        <th>Operação</th>
         <th>Banca</th>
         <th>Retorno</th>
         <th>Win / Loss</th>
@@ -16,7 +16,7 @@
       >
         <td>
           <strong>
-            {{ order.id }}
+            {{ order.id | plusOne }}
           </strong>
         </td>
         <td>
@@ -34,7 +34,7 @@
               Sim
             </span>
             <span class="badge badge-warning">
-              {{ order.order.id }}º
+              {{ order.order.id | plusOne }}º
             </span>
           </td>
         </template>
@@ -45,7 +45,11 @@
           <td>
             -{{ order.order.loss }}%
           </td>
-          <td></td>
+          <td>
+            <span class="badge badge-danger" v-if="order.order.id === 2">
+              HIT
+            </span>
+          </td>
         </template>
       </tr>
     </tbody>
@@ -70,3 +74,6 @@ export default {
   }
 }
 </script>
+
+<style>
+</style>

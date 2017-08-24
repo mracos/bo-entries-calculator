@@ -1,38 +1,49 @@
 <template>
   <table class="table table-responsive text-center">
-    <thead class="thead-inverse">
+    <thead class="thead-primary">
       <tr>
-        <th>Entrada</th>
+        <th></th>
+        <th>Ordem</th>
         <th>Retorno</th>
-        <th>Win / Loss</th>
+        <th>Win</th>
+        <th>Loss</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="order in orders">
         <td>
-          ${{ order.order | round }}
+          {{ order.id | plusOne }}
         </td>
         <td>
-          ${{ order.gain | round }}
+          ${{ order.order }}
         </td>
-          <td class="btn-group">
-            <template v-if="isActualOrder(order.id)">
-              <button class="btn btn-sm btn-success" @click="doOrder({win:true})">
-                +{{ order.win | round }}%
-              </button>
-              <button class="btn btn-sm btn-danger" @click="doOrder({win:false})">
-                -{{ order.loss | round }}%
-              </button>
-            </template>
-            <template v-else>
-              <button class="btn btn-sm btn-outline-success text-success" disabled>
-                +{{ order.win | round }}%
-              </button>
-              <button class="btn btn-sm btn-outline-danger text-danger" disabled>
-                -{{ order.loss | round }}%
-              </button>
-            </template>
+        <td>
+          ${{ order.gain }}
+        </td>
+        <template v-if="isActualOrder(order.id)">
+          <td>
+            <button class="btn btn-sm btn-success" @click="doOrder({win:true})">
+              +{{ order.win }}%
+            </button>
           </td>
+          <td>
+            <button class="btn btn-sm btn-danger" @click="doOrder({win:false})">
+              -{{ order.loss }}%
+            </button>
+          </td>
+        </template>
+        <template v-else>
+          <td>
+            <button class="btn btn-sm btn-outline-success text-success" disabled>
+              +{{ order.win }}%
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-outline-danger text-danger" disabled>
+              -{{ order.loss }}%
+            </button>
+          </td>
+        </template>
         </tr>
     </tbody>
   </table>
