@@ -53,7 +53,7 @@ export default {
       payout: 90,
       gain: 1,
       martingale: {
-        is: true,
+        is: false,
         quantity: 3,
       },
       orders: [],

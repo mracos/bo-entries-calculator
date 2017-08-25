@@ -23,9 +23,15 @@
         <span class="custom-control-indicator"></span>
         <span class="custom-control-description">Martingale</span>
       </label>
-      <div v-if="$parent.martingale.is">
-        <label>Quantidade ordens?</label>
-        <input class="form-control" type="number" v-model.number="$parent.martingale.quantity">
+      <div class="input-group" v-if="$parent.martingale.is" >
+        <div class="input-group-addon">
+          Qnt Ordens?
+        </div>
+        <select
+          class="custom-select form-control"
+          v-model="$parent.martingale.quantity">
+          <option v-for="n in 7" :value="n">{{ n }}</option>
+        </select>
       </div>
     </div>
     <button class="btn btn-primary btn-block" @click="doOrders">Calcular Ordens</button>
