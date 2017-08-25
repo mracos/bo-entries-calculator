@@ -141,6 +141,7 @@ export default {
 </script>
 
 <style lang="scss">
+  @import 'src/assets/fa/scss/font-awesome';
   @import 'node_modules/bootstrap/scss/bootstrap';
 
   $primary: #013a57;

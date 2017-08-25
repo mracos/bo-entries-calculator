@@ -2,11 +2,19 @@
   <table class="table table-responsive text-center">
     <thead class="thead-primary">
       <tr>
-        <th></th>
+        <th>
+          <i class="fa fa-line-chart"></i>
+        </th>
         <th>Ordem</th>
         <th>Retorno</th>
-        <th>Win</th>
-        <th>Loss</th>
+        <th>
+          Win
+          <i class="fa fa-angle-up"></i>
+        </th>
+        <th>
+          Loss
+          <i class="fa fa-angle-down"></i>
+        </th>
       </tr>
     </thead>
     <tbody>

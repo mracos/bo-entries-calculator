@@ -3,11 +3,19 @@
     <table class="table table-responsive text-center">
       <thead class="thead-primary">
         <tr>
-          <th>Operação</th>
+          <th>
+            <i class="fa fa-line-chart"></i>
+          </th>
           <th>Banca</th>
           <th>Retorno</th>
-          <th>Win / Loss</th>
-          <th>Martingale?</th>
+          <th>
+            Win <i class="fa fa-angle-up"></i>
+            Loss <i class="fa fa-angle-down"></i>
+          </th>
+          <th>
+            Martingale?
+            <i class="fa fa-refresh"></i>
+          </th>
         </tr>
       </thead>
       <tbody>
