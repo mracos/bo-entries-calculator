@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="card">
           <div class="card-body">
             <h3 class="card-title">Trading System</h3>
@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-8">
         <div class="card">
           <div class="card-body">
             <vue-tabs>
