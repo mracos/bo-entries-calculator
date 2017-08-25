@@ -49,7 +49,7 @@ export default {
   },
   data () {
     return {
-      bankroll: 100,
+      bankroll: Number,
       payout: 90,
       gain: 1,
       martingale: {
@@ -150,6 +150,7 @@ export default {
   .page-item.active .page-link,
   .thead-primary {
     background-color: $primary;
+    border-color: $primary;
     color: white;
   }
 

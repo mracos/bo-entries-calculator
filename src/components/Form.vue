@@ -25,7 +25,7 @@
       </label>
       <div class="input-group" v-if="$parent.martingale.is" >
         <div class="input-group-addon">
-          Qnt Ordens?
+          Qnt
         </div>
         <select
           class="custom-select form-control"
@@ -43,7 +43,9 @@ export default {
   name: 'ts-form',
   methods: {
     doOrders: function() {
-      this.$emit('doOrders')
+      if (this.$parent.bankroll > 0) {
+        this.$emit('doOrders')
+      }
     }
   }
 }

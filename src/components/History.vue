@@ -50,7 +50,7 @@
                   Sim
                 </span>
                 <span class="badge badge-warning">
-                  {{ order.order.id }}º
+                  {{ order.order.id }}o
                 </span>
               </div>
             </td>
@@ -71,19 +71,16 @@
         </tr>
       </tbody>
     </table>
-      <paginate-links
-        for="history"
-        :hide-single-page="true"
-        :limit="3"
-        :classes="{
-          'ul': ['pagination', 'justify-content-center'],
-          'ul > li': 'page-item',
-          'ul > li > a': 'page-link',
-        }"
-        ></paginate-links>
-      <span v-if="$refs.paginator">
-        Vendo {{ $refs.paginator.pageItemCount }} ordens
-      </span>
+    <paginate-links
+      for="history"
+      :hide-single-page="true"
+      :limit="3"
+      :classes="{
+        'ul': ['pagination', 'justify-content-center'],
+        'ul > li': 'page-item',
+        'ul > li > a': 'page-link',
+      }"
+      ></paginate-links>
     </div>
   </div>
 </template>
