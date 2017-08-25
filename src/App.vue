@@ -146,12 +146,14 @@ export default {
   $primary: #013a57;
   $secondary: #e5cc6a;
   .btn-primary,
+  .page-item.active .page-link,
   .thead-primary {
     background-color: $primary;
     color: white;
   }
 
   .btn-primary:hover,
+  .page-item.active .page-link:hover,
   .custom-control-input:checked {
     border-color: $secondary;
     background-color: $secondary;
