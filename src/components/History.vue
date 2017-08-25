@@ -50,7 +50,7 @@
                   Sim
                 </span>
                 <span class="badge badge-warning">
-                  {{ order.order.id | plusOne }}º
+                  {{ order.order.id }}º
                 </span>
               </div>
             </td>
