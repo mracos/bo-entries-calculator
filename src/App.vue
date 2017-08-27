@@ -49,7 +49,7 @@ export default {
   },
   data () {
     return {
-      bankroll: Number,
+      bankroll: 100,
       payout: 90,
       gain: 1,
       martingale: {

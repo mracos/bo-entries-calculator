@@ -22,11 +22,20 @@
         <td>
           {{ order.id | plusOne }}
         </td>
-        <td>
-          ${{ order.order }}
+        <td v-clipboard:copy="order.order">
+          <strong>
+            <kbd>$ {{ order.order }}</kbd>
+          </strong>
+          <button class="btn btn-sm btn-outline-dark" title="Clique para copiar!">
+            <i class="fa fa-clipboard"></i>
+          </button>
         </td>
         <td>
-          ${{ order.gain }}
+          <strong>
+            <kbd>
+              ${{ order.gain }}
+            </kbd>
+          </strong>
         </td>
         <template v-if="isActualOrder(order.id)">
           <td>
@@ -58,6 +67,11 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import VueClipboard from 'vue-clipboard2'
+
+Vue.use(VueClipboard)
+
 export default {
   name: 'ts-orders',
   props: {
