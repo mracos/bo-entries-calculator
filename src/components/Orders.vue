@@ -24,7 +24,7 @@
         </td>
         <td v-clipboard:copy="order.order">
           <strong>
-            <kbd>$ {{ order.order }}</kbd>
+            <kbd class="money">$ {{ order.order }}</kbd>
           </strong>
           <button class="btn btn-sm btn-outline-dark" title="Clique para copiar!">
             <i class="fa fa-clipboard"></i>
@@ -32,9 +32,7 @@
         </td>
         <td>
           <strong>
-            <kbd>
-              ${{ order.gain }}
-            </kbd>
+            <kbd class="money">$ {{ order.gain }}</kbd>
           </strong>
         </td>
         <template v-if="isActualOrder(order.id)">

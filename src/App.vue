@@ -146,6 +146,11 @@ export default {
 
   $primary: #013a57;
   $secondary: #e5cc6a;
+
+  kbd.money {
+    color: $primary;
+    background-color: $secondary;
+  }
   .btn-primary,
   .page-item.active .page-link,
   .thead-primary {
