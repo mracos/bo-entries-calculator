@@ -151,7 +151,17 @@ export default {
 
 <style lang="scss">
   @import 'src/assets/fa/scss/font-awesome';
-  @import 'node_modules/bootstrap/scss/bootstrap';
+
+  @import "node_modules/bootstrap/scss/functions";
+  @import "node_modules/bootstrap/scss/variables";
+  @import "node_modules/bootstrap/scss/mixins";
+
+  @import "node_modules/bootstrap/scss/reboot";
+  @import "node_modules/bootstrap/scss/grid";
+  @import "node_modules/bootstrap/scss/card";
+  @import "node_modules/bootstrap/scss/tables";
+  @import "node_modules/bootstrap/scss/buttons";
+  @import "node_modules/bootstrap/scss/utilities";
 
   $primary: #013a57;
   $secondary: #e5cc6a;
@@ -161,7 +171,6 @@ export default {
     background-color: $secondary;
   }
   .btn-primary,
-  .page-item.active .page-link,
   .thead-primary {
     background-color: $primary;
     border-color: $primary;
@@ -169,7 +178,6 @@ export default {
   }
 
   .btn-primary:hover,
-  .page-item.active .page-link:hover,
   .custom-control-input:checked {
     border-color: $secondary;
     background-color: $secondary;

@@ -120,5 +120,25 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+  @import "node_modules/bootstrap/scss/functions";
+  @import "node_modules/bootstrap/scss/variables";
+  @import "node_modules/bootstrap/scss/mixins";
+
+  @import "node_modules/bootstrap/scss/pagination";
+  @import "node_modules/bootstrap/scss/badge";
+
+  $primary: #013a57;
+  $secondary: #e5cc6a;
+
+  .page-item.active .page-link {
+    background-color: $primary;
+    border-color: $primary;
+    color: white;
+    &:hover {
+      border-color: $secondary;
+      background-color: $secondary;
+      color: $primary;
+    }
+  }
 </style>
