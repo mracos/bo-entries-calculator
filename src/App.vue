@@ -13,13 +13,17 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-body">
-            <vue-tabs>
+            <vue-tabs
+              v-model="actualTab"
+              activeTabColor="#e5cc6a"
+              activeTextColor="#013a57"
+            >
               <v-tab title="Ordens">
                 <ts-orders :orders="orders" @order="doOrder">
                 </ts-orders>
               </v-tab>
               <v-tab title="Histórico" v-if="history.length > 0">
-                <ts-history :history="history">
+                <ts-history :history="history" @clear="clearHistory()">
                 </ts-history>
               </v-tab>
             </vue-tabs>
@@ -58,6 +62,7 @@ export default {
       },
       orders: [],
       history: [],
+      actualTab: '',
     }
   },
   methods: {
@@ -123,6 +128,10 @@ export default {
         win: win,
         order: order,
       })
+    },
+    clearHistory: function() {
+      this.actualTab = 'Ordens'
+      this.history = []
     },
     round2: function(number) {
       return Number(Number(number).toFixed(2))

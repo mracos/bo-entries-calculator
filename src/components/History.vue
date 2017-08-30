@@ -16,6 +16,11 @@
             Martingale?
             <i class="fa fa-refresh"></i>
           </th>
+          <th>
+            <button class="btn btn-sm btn-danger" @click="emitClear">
+              <i class="fa fa-trash"></i>
+            </button>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -105,6 +110,11 @@ export default {
         }
       },
       paginate: ['history']
+    }
+  },
+  methods: {
+    emitClear: function() {
+      this.$emit('clear')
     }
   }
 }
