@@ -4,7 +4,7 @@
       <div class="col-md-4">
         <div class="card">
           <div class="card-body">
-            <h3 class="card-title">Trading System</h3>
+            <h3 class="card-title">BO Entries Calculator</h3>
             <ts-form @doOrders="doOrders">
             </ts-form>
           </div>

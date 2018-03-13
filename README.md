@@ -1,19 +1,17 @@
-# ts
-## Calculador de ordens (com martingale) em vuejs
+# bo-entries-calculator
+## Binary options entries calculator (with martingale)
 
-> Stick to your trade system!
+Done with VueJS and Bootstrap 3
 
-## Build Setup
+### Screenshots
+![first screenshot](assets/1_screenshot.png)
+![second screenshot](assets/2_screenshot.png)
 
+### Running
 ``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
+# install dependencies and start the server
+# will open an browser tab on localhost:8080
+npm install && npm run dev
 ```
-> now you can copy the index.html and everything from the dist folder
+
+Thanks for all the :fish:
