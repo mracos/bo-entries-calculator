@@ -31,6 +31,16 @@
         </div>
       </div>
     </div>
+    <p class="github">
+      See on
+      <a
+        class="github__link"
+        href="//github.com/mracos/bo-entries-calculator"
+        target="_blank"
+      >
+        github
+      </a>
+    </p>
   </div>
 </template>
 
@@ -182,5 +192,21 @@ export default {
     border-color: $secondary;
     background-color: $secondary;
     color: $primary;
+  }
+
+  .github {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .github__link {
+    color: $primary;
+
+    &:hover {
+      color: $secondary;
+      text-decoration: none;
+    }
   }
 </style>
