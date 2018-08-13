@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import {VueTabs, VTab} from 'vue-nav-tabs'
+import {VueTabs, VTab} from 'vue-nav-tabs/dist/vue-tabs.js'
 import 'vue-nav-tabs/themes/vue-tabs.css';
 
 import TsForm from './components/Form.vue'
